@@ -1,0 +1,60 @@
+.data
+vetor:  .space 24
+msg1: .asciiz "Entre com os valores: "	
+resultado: .asciiz "Soma dos positivos:\n"
+resultado2: .asciiz "\nMultiplicacao dos negativos:\n"
+
+.text
+
+	li $v0,4
+	la $a0, msg1
+	syscall
+
+loopleitura:
+	beq $t1,6,continua
+
+	li $v0,5
+	syscall
+	sw $v0, vetor($t0)
+	
+	addi $t1, $t1, 1
+	addi $t0, $t0, 4
+	j loopleitura
+continua:
+	li $t0, 0
+	li $t1, 0
+	li $s2, 1
+	loopver:
+		beq $t1, 6, fim
+		lw $s0, vetor($t0)
+		bge $s0, 0, posi
+		j nega
+		posi:
+			add $s1, $s1, $s0
+			j continua2
+		nega:
+			mul $s2, $s2, $s0
+			j continua2
+		continua2:
+		addi $t0, $t0, 4
+		addi $t1, $t1, 1
+		j loopver
+	
+fim:
+li $v0,4
+la $a0, resultado
+syscall 	
+li $v0, 1
+la $a0,($s1)
+syscall 
+
+li $v0,4
+la $a0, resultado2
+syscall 	
+li $v0, 1
+la $a0,($s2)
+syscall 
+
+
+li $v0, 10
+syscall

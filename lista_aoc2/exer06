@@ -1,0 +1,42 @@
+.data
+msg: .asciiz "Quantidade em quilos\n"
+res: .asciiz "Quantidade em quilos excedente\n"
+res1: .asciiz "\nPreço em R$ em multa a pagar\n"
+.text
+	li $v0, 4
+	la $a0, msg
+	syscall
+	li $v0,5
+	syscall
+	move $s0,$v0
+	
+
+	bgt $s0, 50, rot1
+		li $s1, 0
+		li $s2, 0
+		j rot2
+	rot1:
+	sub $s1, $s0, 50
+	mul $s2, $s1, 4
+	
+	rot2:
+	
+	li $v0, 4
+	la $a0, res
+	syscall
+	li $v0, 1
+	la $a0,($s1)
+	syscall 
+	
+	li $v0, 4
+	la $a0, res1
+	syscall
+	li $v0, 1
+	la $a0,($s2)
+	syscall 
+	
+
+	
+fim:
+li $v0, 10
+syscall

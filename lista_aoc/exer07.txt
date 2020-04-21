@@ -1,0 +1,19 @@
+a) not $t0, $t1
+not(0 or 0) = 1
+not(0 or 1) = 0
+not(1 or 0) = 0
+not(1 or 1) = 0
+
+nor $t2, $t0, $t1
+
+b)li $s1, 10
+addi $s1, $s1, 10
+	   admitir $s1 = 0
+
+c)neg $t2
+mul $t2, $t2, -1
+sub $t2, $zero, $t2
+
+d)beqz $s2, label
+beq $s2, $zero, label
+

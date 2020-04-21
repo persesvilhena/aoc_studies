@@ -1,0 +1,23 @@
+# int vetor[10]
+# int retorno = 0
+# for (i=0; i<10; i++)
+# 	if (vetor[i])
+#		retorno = 1
+
+	.data
+	vetor: .word 0, 0, 0, 1, 0, 0, -1, 0, 0, 0
+	retorno: .word 0
+	.text
+		la $s0,0	# indice do vetor[i]
+		li $t0,0	# inicializa retorno com zero
+		li $t1,10	# inicializa contador com 10
+	loop:
+		lw $t2, vetor($s0) # carrega valor da memoria (vetor[i])
+		beqz $t2, skip	   # desvia se for zero (condi??o invertida)
+		addi $t0, $zero, 1 # se diferente de zero atribui 1
+	skip:
+		addi $s0, $s0, 4   # incrementa indice (i++)
+		addi $t1, $t1, -1  # decrementa contador de repeti??o
+		bgtz $t1, loop	   # repete enquanto contador for maior do que zero
+		
+		sw $t0, retorno	   # grava retorno	

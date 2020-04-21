@@ -1,0 +1,15 @@
+.data
+.text
+.main:
+
+li $t0, 2
+li $t1, 5
+li $t2, 0
+
+loop:
+beq $t0, $zero, fim
+add $t2, $t2, $t1
+sub $t0, $t0, 1
+j loop
+
+fim:

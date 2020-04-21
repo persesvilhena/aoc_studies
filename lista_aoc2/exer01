@@ -1,0 +1,52 @@
+.data
+msg: .asciiz "Entre com o numero\n"
+resultado: .asciiz "\nMultiplicacao de "
+resultado2: .asciiz " por "
+resultado3: .asciiz " eh "
+resultado4: .asciiz "\n"
+.text
+	li $v0,4
+	la $a0, msg
+	syscall
+	
+	li $v0,5
+	syscall
+	move $t0,$v0
+	
+	li $s1, 10
+	
+	loop:
+	beq $t2, $s1, fim
+	
+		add $t2, $t2, 1
+		mul $t1,$t0,$t2
+		
+		li $v0,4
+		la $a0, resultado
+		syscall 
+		li $v0, 1
+		la $a0,($t2)
+		syscall 
+		
+		li $v0,4
+		la $a0, resultado2
+		syscall 
+		li $v0, 1
+		la $a0,($t0)
+		syscall 
+		
+		li $v0,4
+		la $a0, resultado3
+		syscall 
+		li $v0, 1
+		la $a0,($t1)
+		syscall 
+		
+		li $v0,4
+		la $a0, resultado4
+		syscall 
+		
+		j loop
+fim:
+li $v0, 10
+syscall

@@ -1,0 +1,14 @@
+.data
+.text
+.main:
+
+li $s0, 1
+li $s1, 2
+
+bge $s0, $s1, rot
+sub $s1, $s1, 1
+j Exit
+
+rot:
+add $s0, $s0, 1
+Exit:

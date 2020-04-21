@@ -1,0 +1,60 @@
+.data
+vetor:  .space 24
+msg1: .asciiz "Digites os Numeros: "		
+resultado: .asciiz "O maior elemento do vetor é:\n"
+resultado2: .asciiz "\nO menor elemento do vetor é:\n"
+
+.text
+li $v0,4
+la $a0, msg1
+syscall
+
+loopleitura:
+	beq $t1,6,continua
+	li $v0,5
+	syscall
+
+	sw $v0, vetor($t0)
+	addi $t1, $t1, 1
+	addi $t0, $t0, 4
+	j loopleitura
+continua:
+	li $t0, 0
+	li $t1, 0
+	lw $s2, vetor($t1)
+	li $s1, 0
+	loopver:
+		beq $t1, 6, fim
+		lw $s0, vetor($t0)
+		bgt $s0, $s1, maior
+		blt $s0, $s2, menor
+		j continua2
+		maior:
+			move $s1, $s0
+			j continua2
+		menor:
+			move $s2, $s0
+			j continua2
+		continua2:
+		addi $t0, $t0, 4
+		addi $t1, $t1, 1
+		j loopver
+	
+fim:
+li $v0,4
+la $a0, resultado
+syscall 	
+li $v0, 1
+la $a0,($s1)
+syscall 
+
+li $v0,4
+la $a0, resultado2
+syscall 	
+li $v0, 1
+la $a0,($s2)
+syscall 
+
+
+li $v0, 10
+syscall

@@ -1,0 +1,101 @@
+.data
+msg: .asciiz "Valor A\n"
+msg1: .asciiz "Valor B\n"
+msg2: .asciiz "Valor C\n"
+res: .asciiz "Resultado\n"
+.text
+	li $v0, 4
+	la $a0, msg
+	syscall
+	li $v0,5
+	syscall
+	move $s0,$v0
+	
+	li $v0, 4
+	la $a0, msg1
+	syscall
+	li $v0,5
+	syscall
+	move $s1,$v0
+	
+	li $v0, 4
+	la $a0, msg2
+	syscall
+	li $v0,5
+	syscall
+	move $s2,$v0
+	
+	bgt $s0, $s1, r1
+	v0:
+	bgt $s0, $s2, r2
+	v1:
+	bgt $s1, $s0, r3
+	v2:
+	bgt $s1, $s2, r4
+	v3:
+	bgt $s2, $s0, r5
+	v4:
+	bgt $s2, $s1, r6
+	r1: bgt $s1, $s2, r7
+	j v0
+	r2: bgt $s2, $s1, r8
+	j v1
+	r3: bgt $s0, $s2, r9
+	j v2
+	r4: bgt $s2, $s0, r10
+	j v3
+	r5: bgt $s0, $s1, r11
+	j v4
+	r6: bgt $s1, $s0, r12
+	
+	r7: 
+	move $s3, $s0
+	move $s4, $s1
+	move $s5, $s2
+	li $s6, 7
+	j fim
+	r8:
+	move $s3, $s0
+	move $s4, $s2
+	move $s5, $s1
+	li $s6, 8
+	j fim
+	r9:
+	move $s3, $s1
+	move $s4, $s0
+	move $s5, $s2
+	li $s6, 9
+	j fim
+	r10:
+	move $s3, $s1
+	move $s4, $s2
+	move $s5, $s0
+	li $s6, 10
+	j fim
+	r11:
+	move $s3, $s2
+	move $s4, $s0
+	move $s5, $s1
+	li $s6, 11
+	j fim
+	r12:
+	move $s3, $s2
+	move $s4, $s1
+	move $s5, $s0
+	li $s6, 12
+	j fim
+	
+	
+	
+	li $v0, 4
+	la $a0, res
+	syscall
+	li $v0, 1
+	la $a0,($s2)
+	syscall 
+	
+
+	
+fim:
+li $v0, 10
+syscall

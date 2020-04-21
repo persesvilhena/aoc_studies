@@ -1,0 +1,15 @@
+.data
+.text
+.main:
+
+li $s0, 1
+li $s1, 2
+li $s2, 3
+
+beq $s0, $zero, rot
+add $s0, $s0, $s1
+j Exit
+
+rot:
+add $s0, $s0, $s2
+Exit:

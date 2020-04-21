@@ -1,0 +1,12 @@
+.data
+.text
+.main:
+
+li $s0, 1
+li $s1, 2
+li $s2, 3
+
+add $s0, $s0, $s1
+add $s1, $s2, $s2
+sub $s2, $s0, $s1
+Exit:

@@ -1,0 +1,30 @@
+.data
+vetor: .space 24
+msg1: .asciiz "Digites os Numeros: "
+resultado: .asciiz "O maior elemento do vetor é:\n
+.text
+li $v0,4
+la $a0, msg1
+syscall
+li $t4,-1000 # Representa o maior elemento
+li $t5,0
+repita: beq $t5,5,fim
+li $v0,5
+syscall
+sw $v0,vetor($t0)
+lw $t1,vetor($t0)
+addi $t0,$t0,4 #incremento do vetor
+addi $t5,$t5,1 #incremento para quantidade de elementos
+bge $t4,$t1,repita
+move $t4,$t1 #armazena o maior elemento
+bge $t5,$t1,fim
+j repita
+fim:
+li $v0,4
+la $a0, resultado
+syscall
+li $v0, 1
+la $a0,($t4)
+syscall
+li $v0, 10
+syscall
